@@ -15,6 +15,7 @@ bool Hand::Card::operator==(const Card *c){
     }
     return false;
 }
+// Card != overloaded function
 bool Hand::Card::operator!=(const Card *c){
     if ( (this->suit != c->suit) || (this->rank != c->rank) ){
         return true;
@@ -25,7 +26,8 @@ bool Hand::Card::operator!=(const Card *c){
     return false;
 }
 
-// Hand class functions
+/* Hand class functions */
+// Constructors
 Hand::Hand(){
     this->playerName = "";
     this->firstCard = nullptr;
@@ -36,14 +38,16 @@ Hand::Hand(string n){
     this->firstCard = nullptr;
     this->lastCard = nullptr;
 }
+// Copy Constructor
 Hand::Hand(Hand& source){
-    if ( !source.firstCard ){
+    if ( !source.firstCard ){ // if source is empty, this Hand should be empty too
         this->playerName = "";
         this->firstCard = nullptr;
         this->lastCard = nullptr;
     }
-    else {
+    else { // else iterate through source, appending each Card to this Hand
         this->playerName = source.playerName;
+
         Card *c = source.firstCard;
         this->firstCard = nullptr;
         while ( c ){
@@ -52,6 +56,7 @@ Hand::Hand(Hand& source){
         }
     }
 }
+// Copy Assignment Operator
 Hand& Hand::operator=(const Hand& source){
     if ( this == &source ){ // this and source are the same, return *this
         return *this;
@@ -68,7 +73,9 @@ Hand& Hand::operator=(const Hand& source){
         }
         else { // this list is empty, copy source to it Card by Card
             this->playerName = source.playerName;
-            Card *currCard = source.firstCard; // use currCard as placeholder to iterate through source
+            
+            // use currCard as placeholder to iterate through source
+            Card *currCard = source.firstCard;
             while ( currCard ){
                 this->appendCard(currCard);
                 currCard = currCard->nextCard;
@@ -84,7 +91,7 @@ void Hand::appendCard(Card *newCard){
     Card *c = new Card;
     c->suit = newCard->suit;
     c->rank = newCard->rank;
-    //c->rank = this->convertFaceCardValue(newCard->rank);
+    // ignore this: c->rank = this->convertFaceCardValue(newCard->rank);
     c->nextCard = nullptr;
 
     if ( !this->firstCard ){ // Hand is empty, adding first Card to list
@@ -100,7 +107,7 @@ void Hand::appendCard(char s, int r){
     Card *c = new Card;
     c->suit = s;
     c->rank = r;
-    //c->rank = this->convertFaceCardValue(r);
+    // ignore this: c->rank = this->convertFaceCardValue(r);
     c->nextCard = nullptr;
 
     if ( !this->firstCard ){ // Hand is empty, adding first Card to list
@@ -115,6 +122,8 @@ void Hand::appendCard(char s, int r){
 void Hand::appendCard(char s, char r){
     Card *c = new Card;
     c->suit = s;
+
+    // need to convert char from input file to int because I made the member variable rank and int
     c->rank = this->convertFaceCardValue(r);
     c->nextCard = nullptr;
 
@@ -223,6 +232,7 @@ Hand::Card* Hand::getCard(Card *c) const{
         return nullptr;
     }
     Card *currCard = this->firstCard;
+    // find the card, return it, otherwise return nullptr
     while ( (currCard->rank != c->rank) || (currCard->suit != c->suit) ){
         if ( currCard->nextCard != nullptr ){
             currCard = currCard->nextCard;
@@ -239,6 +249,7 @@ Hand::Card* Hand::getCard(char s, int r) const{
     }
 
     Card *currCard = this->firstCard;
+    // find the card, return it, otherwise return nullptr
     while ( (currCard->rank != r) || (currCard->suit != s) ){
         if ( currCard->nextCard != nullptr ){
             currCard = currCard->nextCard;
@@ -255,6 +266,7 @@ Hand::Card* Hand::getPrevCard(Card *c) const{
     }
 
     Card *currCard = this->firstCard;
+    // if nextCard is the Card, then return currCard (because currCard is prevCard of nextCard)
     while ( (currCard->nextCard->rank != c->rank) || (currCard->nextCard->suit != c->suit) ){
         if ( currCard->nextCard->nextCard != nullptr ){
             currCard = currCard->nextCard;
@@ -274,6 +286,7 @@ Hand::Card* Hand::getPrevCard(char s, int r) const{
     }
 
     Card *currCard = this->firstCard;
+    // if nextCard is the Card, then return currCard (because currCard is prevCard of nextCard)
     while ( (currCard->nextCard->rank != r) || (currCard->nextCard->suit != s) ){
         if ( currCard->nextCard->nextCard != nullptr ){
             currCard = currCard->nextCard;
@@ -345,6 +358,8 @@ bool Hand::displayMatch(Hand& source){
     Card *c = this->firstCard;
     while ( c ){
         Card *possibleMatch = source.getCard(c);
+        // getCard either returns the matching card or it returns nullptr if it is not found
+        // Thus, if ( possibleMatch ) evaluates to true if possibleMatch is found
         if ( possibleMatch ){
             // If within this branch, then possibleMatch is in fact a match with c
             // Print the match, then remove matching Card from each player's Hand
@@ -364,6 +379,8 @@ bool Hand::isMatch(Hand& source){
     Card *c = this->firstCard;
     while ( c ){
         Card *possibleMatch = source.getCard(c);
+        // getCard either returns the matching card or it returns nullptr if it is not found
+        // Thus, if ( possibleMatch ) evaluates to true if possibleMatch is found
         if ( possibleMatch ){
             return true;
         }
@@ -374,6 +391,7 @@ bool Hand::isMatch(Hand& source){
     return false;
 }
 void Hand::printMatch(Hand& source, Card *match){
+    // Must convert int member variable back to char (ex. 13 -> 'k')
     char cardVal = convertValueCardFace(match->rank);
     cout << playerName << " picked matching card " << match->suit << " " << cardVal << endl;
 }
