@@ -45,11 +45,11 @@ int main(){
   
 
   badHand.printCards();
-  goodHand.findMatch(badHand);
-  goodHand.findMatch(badHand);
-  goodHand.findMatch(badHand);
-  goodHand.findMatch(badHand);
-  goodHand.findMatch(badHand);
+  goodHand.displayMatch(badHand);
+  goodHand.displayMatch(badHand);
+  goodHand.displayMatch(badHand);
+  goodHand.displayMatch(badHand);
+  goodHand.displayMatch(badHand);
 
   
   //runAll();
