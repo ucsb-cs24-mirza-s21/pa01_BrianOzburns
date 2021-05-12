@@ -58,7 +58,6 @@ int main(int argv, char** argc){
   firstPlayer.printCards();
   cout << endl;
   secondPlayer.printCards();
-  cout << endl;
 
   return 0;
 }
