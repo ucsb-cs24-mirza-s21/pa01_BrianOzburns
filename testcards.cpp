@@ -5,13 +5,58 @@
 #include "testcards.h"
 #include <iostream>
 #include <vector>
-using namespace std;
+
+
+
 
 int main(){
-  runAll();
+
+
+
+  Hand goodHand {"Tiger Woods"};
+  goodHand.appendCard('h', 10);
+  goodHand.appendCard('h', 'k');
+  goodHand.appendCard('c', 5);
+  goodHand.appendCard('s', 5);
+  goodHand.appendCard('d', 5);
+
+  Hand badHand;
+  badHand = goodHand;
+  badHand.setPlayerName("Sam Jackson");
+  badHand.printCards();
+
+  cout << endl;
+
+  goodHand.printCards();
+
+  cout << endl << endl;
+
+  
+  badHand.removeCard('c', 5);
+  badHand.removeCard('d', 5);
+  badHand.removeCard('h', 10);
+  
+  
+  badHand.getPrevCard('d', 5);/////
+  badHand.getPrevCard('s', 5);
+  badHand.getPrevCard('c', 5);/////
+  badHand.getPrevCard('h', 10);
+  badHand.getPrevCard('h', 10);/////
+  
+
+  badHand.printCards();
+  goodHand.findMatch(badHand);
+  goodHand.findMatch(badHand);
+  goodHand.findMatch(badHand);
+  goodHand.findMatch(badHand);
+  goodHand.findMatch(badHand);
+
+  
+  //runAll();
   return 0;
 }
 
+/*
 void runAll(){
   test_append();
   test_equal();
@@ -44,6 +89,8 @@ void test_card(){
 
 void test_append_empty_list(){ 
 // A test case for append single card node to LinkedList
+  //Hand amazingHand;
+  //amazingHand.appendCard('h', 13)
 }
 
 void test_append_single_element_list(){ 
@@ -63,4 +110,4 @@ void test_card_operator_double_equal(){
 
 
 
-
+*/

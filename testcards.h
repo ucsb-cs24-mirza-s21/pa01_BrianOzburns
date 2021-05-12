@@ -1,5 +1,5 @@
 // testcards.h
-//Authors: Your Partner's Name and Your Name
+//Authors: Brian Ozawa Burns, 05/09/2021
 //All test declarations go here
 
 // This is not exhaustive list of tests. You can remove / edit tests if it doesn't suit your design but you should definitelty add more
