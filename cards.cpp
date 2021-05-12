@@ -4,6 +4,27 @@
 #include <iostream>
 #include "cards.h"
 using namespace std;
+
+// Card == overloaded function
+bool Hand::Card::operator==(const Card *c){
+    if ( (this->suit == c->suit) && (this->rank == c->rank) ){
+        return true;
+    }
+    else {
+        return false;
+    }
+    return false;
+}
+bool Hand::Card::operator!=(const Card *c){
+    if ( (this->suit != c->suit) || (this->rank != c->rank) ){
+        return true;
+    }
+    else {
+        return false;
+    }
+    return false;
+}
+
 // Hand class functions
 Hand::Hand(){
     this->playerName = "";

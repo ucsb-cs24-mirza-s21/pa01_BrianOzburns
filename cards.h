@@ -24,6 +24,8 @@ class Hand{
             // meaning I would have approached this pa completely differently if I knew
             // One example: I would have simply made rank a char, then I wouldn't have needed
             // to write the conversion functions convertFaceCardValue and convertValueCardFace
+            bool operator==(const Card *c);
+            bool operator!=(const Card *c);
         };
 
         Card *firstCard;

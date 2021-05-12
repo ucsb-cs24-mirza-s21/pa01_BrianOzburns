@@ -25,12 +25,12 @@ int main(){
   badHand.setPlayerName("Sam Jackson");
   badHand.printCards();
 
+  
   cout << endl;
 
   goodHand.printCards();
 
   cout << endl << endl;
-
   
   badHand.removeCard('c', 5);
   badHand.removeCard('d', 5);
@@ -51,7 +51,6 @@ int main(){
   goodHand.displayMatch(badHand);
   goodHand.displayMatch(badHand);
 
-  
   //runAll();
   return 0;
 }
