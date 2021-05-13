@@ -6,8 +6,8 @@
 using namespace std;
 
 // Card == overloaded function
-bool Hand::Card::operator==(const Card *c){
-    if ( (this->suit == c->suit) && (this->rank == c->rank) ){
+bool Hand::Card::operator==(const Card& c){
+    if ( (this->suit == c.suit) && (this->rank == c.rank) ){
         return true;
     }
     else {
@@ -16,8 +16,8 @@ bool Hand::Card::operator==(const Card *c){
     return false;
 }
 // Card != overloaded function
-bool Hand::Card::operator!=(const Card *c){
-    if ( (this->suit != c->suit) || (this->rank != c->rank) ){
+bool Hand::Card::operator!=(const Card& c){
+    if ( (this->suit != c.suit) || (this->rank != c.rank) ){
         return true;
     }
     else {
@@ -25,6 +25,7 @@ bool Hand::Card::operator!=(const Card *c){
     }
     return false;
 }
+
 
 /* Hand class functions */
 // Constructors
@@ -136,6 +137,7 @@ void Hand::appendCard(char s, char r){
         this->lastCard = c;
     }
 }
+// I know, these are impractical.
 int Hand::convertFaceCardValue(char f){
     if ( f == '1' ){
         return 1; // convert to int and return it
@@ -405,6 +407,12 @@ void Hand::printCards(){
         c = c->nextCard;
     }
 }
+bool Hand::isEmpty(){
+    if ( !this->firstCard ){
+        return true;
+    }
+    return false;
+}
 Hand::~Hand(){
     this->playerName = "";
     Card *currCard = this->firstCard;
@@ -413,6 +421,7 @@ Hand::~Hand(){
         currCard = currCard->nextCard;
         delete cardToDelete;
     }
+    this->firstCard = nullptr;
 }
 
 
@@ -490,4 +499,16 @@ void Hand::insertCard(char s, int r){
             }
         }
     }
+}
+string Hand::getPlayerName() const{
+    return playerName;
+}
+int Hand::getRank() const{
+    return this->firstCard->rank;
+}
+char Hand::getSuit() const{
+    return this->firstCard->suit;
+}
+Hand::Card* Hand::getNextCard() const{
+    return this->firstCard->nextCard;
 }

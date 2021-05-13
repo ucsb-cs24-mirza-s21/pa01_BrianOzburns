@@ -24,12 +24,12 @@ class Hand{
             // meaning I would have approached this pa completely differently if I knew
             // One example: I would have simply made rank a char, then I wouldn't have needed
             // to write the conversion functions convertFaceCardValue and convertValueCardFace
-            bool operator==(const Card *c);
-            bool operator!=(const Card *c);
+            bool operator==(const Card& c);
+            bool operator!=(const Card& c);
         };
 
-        Card *firstCard;
-        Card *lastCard;
+        Card *firstCard; // head
+        Card *lastCard; // tail
 
         void printMatch(Hand& source, Card *match); // source is opponent's Hand, function called from within findMatch(Hand& source)
         
@@ -60,6 +60,7 @@ class Hand{
 
         bool displayMatch(Hand& source); // source is opponent's Hand, return true if match found, print the match found, call removeCard for each player, false if no match found
         bool isMatch(Hand& source); // return true if a match exists, false otherwise
+        bool isEmpty(); // return true if Hand is empty, false if contains one or more Cards
 
         ~Hand(); // Destructor
 
@@ -70,9 +71,16 @@ class Hand{
         void appendCard(Card *newCard); // Append an existing Card to Hand
         void appendCard(char s, int r); // Append a Card to hand by passing its values as arguments
 
-        //// Insert functions are not necessary to use (created them just because I felt like it)
+        // Insert functions are not necessary to use (created them just because I felt like it)
         void insertCard(Card *newCard); // Insert an existing Card to Hand
         void insertCard(char s, int r); // Insert a Card to hand by passing its values as arguments
+
+        // get functions for troubleshooting and unit testing
+        string getPlayerName() const; // returns playerName
+        int getRank() const; // returns rank of first Card
+        char getSuit() const; // returns suit of first Card
+        Card* getNextCard() const; // returns nextCard
+
 };
 
 /*
